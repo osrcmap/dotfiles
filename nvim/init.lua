@@ -1,3 +1,5 @@
+vim.g.mapleader = " " -- important to set this before loading telescpe
+
 require("settings")
-require("keymaps")
 require("plugins-setup")
+require("keymaps")
