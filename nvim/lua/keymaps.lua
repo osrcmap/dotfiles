@@ -1,3 +1,5 @@
+-- some keymaps are defined in the plugins-setup.lua
+
 -- vim.g.mapleader = " " -- set in init.lua 
 
 local builtin = require('telescope.builtin')
