@@ -156,7 +156,7 @@ require("mason").setup({
 })
 
 require("mason-lspconfig").setup{
-    ensure_installed = {"gopls", "clangd", "pyright", "lua_ls", "jdtls", "ts_ls", "cssls", "html"},
+    ensure_installed = {"gopls", "clangd", "pyright", "lua_ls", "jdtls", "ts_ls", "cssls", "html", "sqlls"},
 }
 
 -- cmp config
@@ -272,11 +272,15 @@ require("lspconfig").html.setup{
     on_attach = on_attach,
     capabilities = capabilities
 }
+require("lspconfig").sqlls.setup{
+    on_attach = on_attach,
+    capabilities = capabilities
+}
 
 require('lualine').setup {
   options = {
     icons_enabled = true,
-    theme = 'powerline_dark', -- auto
+    theme = 'horizon', -- auto -- powerline_dark -- iceberg_dark -- nord
     component_separators = { left = '', right = ''},
     section_separators = { left = '', right = ''},
     disabled_filetypes = {
