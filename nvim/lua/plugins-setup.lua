@@ -40,7 +40,7 @@ require("lazy").setup({
     {
         'nvim-telescope/telescope.nvim',
         tag = '0.1.8',
-        dependencies = { 'nvim-lua/plenary.nvim' }
+        dependencies = { 'nvim-lua/plenary.nvim' },
     },
     {
         'hrsh7th/nvim-cmp',
@@ -71,7 +71,7 @@ require("lazy").setup({
             styles = {
                 bold = true,
                 italic = true,
-                transparency = false,
+                transparency = true,
             },
 
             groups = {
@@ -134,6 +134,9 @@ require("lazy").setup({
     {
         'nvim-lualine/lualine.nvim',
         dependencies = { 'nvim-tree/nvim-web-devicons' }
+    },
+    {
+        'windwp/nvim-ts-autotag',
     },
 })
 
@@ -317,3 +320,37 @@ require('lualine').setup {
   inactive_winbar = {},
   extensions = {}
 }
+
+--[[
+-- ThePrimaegen snippet for transparency
+require('rose-pine').setup({
+    disable_background = true
+})
+function ColorMyPencils(color) 
+	color = color or "rose-pine"
+	vim.cmd.colorscheme(color)
+
+	vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+	vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+
+end
+
+ColorMyPencils()
+--]]
+
+require('nvim-ts-autotag').setup({
+  opts = {
+    -- Defaults
+    enable_close = true, -- Auto close tags
+    enable_rename = true, -- Auto rename pairs of tags
+    enable_close_on_slash = false -- Auto close on trailing </
+  },
+  -- Also override individual filetype configs, these take priority.
+  -- Empty by default, useful if one of the "opts" global settings
+  -- doesn't work well in a specific filetype
+  per_filetype = {
+    ["html"] = {
+      enable_close = false
+    }
+  }
+})
