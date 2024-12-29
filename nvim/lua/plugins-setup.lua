@@ -138,6 +138,9 @@ require("lazy").setup({
     {
         'windwp/nvim-ts-autotag',
     },
+    {
+        'mbbill/undotree',
+    },
 })
 
 -- Set theme
