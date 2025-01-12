@@ -22,10 +22,17 @@ set $menu dmenu_path | dmenu | xargs swaymsg exec --
 
 include /etc/sway/config-vars.d/*
 
+### No borders -> Does not work properly with kitty in the first workspace (I open BB in the second workspace, then it works with kitty)
+for_window [class=".*"] border none 0
+for_window [class=".*"] default_border none 0
+for_window [class=".*"] default_floating_border none 0
+
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+# output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+#output * bg ./wallpapers/green.png fill
+output * bg ./wallpapers/fav.png fill
 #
 # Example configuration:
 #
@@ -50,6 +57,18 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 #
 # Example configuration:
 #
+# To set up my laptop trackpad
+# input "10182:480:GXTP7863:00_27C6:01E0" {
+input "type:touchpad" {
+        dwt enabled
+        tap enabled
+        natural_scroll enabled
+        middle_emulation enabled
+}
+# Spanish layout (not latinamerican)
+input "type:keyboard" {
+    xkb_layout es
+}
 #   input "2:14:SynPS/2_Synaptics_TouchPad" {
 #       dwt enabled
 #       tap enabled
@@ -203,17 +222,19 @@ bindsym $mod+r mode "resize"
 #
 # Read `man 5 sway-bar` for more information about this section.
 bar {
-    position top
+    # position top
 
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
-    status_command while date +'%Y-%m-%d %I:%M:%S %p'; do sleep 1; done
+    #status_command while date +'%Y-%m-%d %H:%M:%S'; do sleep 1; done
+    swaybar_command waybar
 
-    colors {
-        statusline #ffffff
-        background #323232
-        inactive_workspace #32323200 #32323200 #5c5c5c
-    }
+    #colors {
+    #    statusline #ffffff
+    #    #background #323232
+    #    background #000000
+    #    inactive_workspace #32323200 #32323200 #5c5c5c
+    #}
 }
 
 include /etc/sway/config.d/*
