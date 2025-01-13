@@ -26,6 +26,11 @@ include /etc/sway/config-vars.d/*
 for_window [class=".*"] border none 0
 for_window [class=".*"] default_border none 0
 for_window [class=".*"] default_floating_border none 0
+### Brightness configuration
+# Increase brightness
+bindsym XF86MonBrightnessUp exec brightnessctl s +10%
+# Decrease brightness
+bindsym XF86MonBrightnessDown exec brightnessctl s 10%-
 
 ### Output configuration
 #
