@@ -26,18 +26,30 @@ include /etc/sway/config-vars.d/*
 for_window [class=".*"] border none 0
 for_window [class=".*"] default_border none 0
 for_window [class=".*"] default_floating_border none 0
-### Brightness configuration
+
+### Special buttons
+## Brightness configuration
 # Increase brightness
 bindsym XF86MonBrightnessUp exec brightnessctl s +10%
 # Decrease brightness
 bindsym XF86MonBrightnessDown exec brightnessctl s 10%-
+## Screenshots
+bindsym Print exec grim -g "$(slurp)" ~/Pictures/$(date +'%Y-%m-%d_%H-%M-%S').png
+## Volume
+# Increase volume
+bindsym XF86AudioRaiseVolume exec pamixer -i 5
+# Decrease volume
+bindsym XF86AudioLowerVolume exec pamixer -d 5
+# Toggle mute
+bindsym XF86AudioMute exec pamixer -t
+
 
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 # output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
-#output * bg ./wallpapers/green.png fill
-output * bg ./wallpapers/fav.png fill
+output * bg ./wallpapers/green.png fill
+#output * bg ./wallpapers/fav.png fill
 #
 # Example configuration:
 #
