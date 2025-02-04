@@ -57,8 +57,8 @@ require("lazy").setup({
         "rose-pine/neovim",
         name = "rose-pine",
         opts = {
-            variant = "auto", -- auto, main, moon, or dawn
-            dark_variant = "main", -- main, moon, or dawn
+            variant = "auto", -- auto
+            dark_variant = "main",
             dim_inactive_windows = false,
             extend_background_behind_borders = true,
 
@@ -286,7 +286,7 @@ require("lspconfig").sqlls.setup{
 require('lualine').setup {
   options = {
     icons_enabled = true,
-    theme = 'horizon', -- auto -- powerline_dark -- iceberg_dark -- nord
+    theme = 'horizon', -- auto
     component_separators = { left = '', right = ''},
     section_separators = { left = '', right = ''},
     disabled_filetypes = {
@@ -323,23 +323,6 @@ require('lualine').setup {
   inactive_winbar = {},
   extensions = {}
 }
-
---[[
--- ThePrimaegen snippet for transparency
-require('rose-pine').setup({
-    disable_background = true
-})
-function ColorMyPencils(color) 
-	color = color or "rose-pine"
-	vim.cmd.colorscheme(color)
-
-	vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-	vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
-
-end
-
-ColorMyPencils()
---]]
 
 require('nvim-ts-autotag').setup({
   opts = {
