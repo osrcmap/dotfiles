@@ -7,7 +7,6 @@ case $- in
     *i*) ;;
       *) return;;
 esac
-
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
@@ -134,3 +133,5 @@ function y() {
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# In the server: 'export TERM=xterm' to avoid 'Error opening terminal: xterm-kitty.'

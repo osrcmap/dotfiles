@@ -30,9 +30,9 @@ for_window [class=".*"] default_floating_border none 0
 ### Special buttons
 ## Brightness configuration
 # Increase brightness
-bindsym XF86MonBrightnessUp exec brightnessctl s +10%
+bindsym XF86MonBrightnessUp exec brightnessctl s +5%
 # Decrease brightness
-bindsym XF86MonBrightnessDown exec brightnessctl s 10%-
+bindsym XF86MonBrightnessDown exec brightnessctl s 5%-
 ## Screenshots
 bindsym Print exec grim -g "$(slurp)" ~/Pictures/$(date +'%Y-%m-%d_%H-%M-%S').png
 ## Volume

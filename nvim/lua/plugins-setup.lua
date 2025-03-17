@@ -19,7 +19,7 @@ require("lazy").setup({
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
         opts = {
-            ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "javascript", "html", "css", "go", "cpp", "python", "java", "sql", "bash", "typescript" },
+            ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "javascript", "html", "css", "go", "cpp", "python", "java", "sql", "bash", "typescript", "dockerfile", "yaml" },
             sync_install = false,
             highlight = { enable = true },
             indent = { enable = true },
@@ -336,7 +336,7 @@ require('nvim-ts-autotag').setup({
   -- doesn't work well in a specific filetype
   per_filetype = {
     ["html"] = {
-      enable_close = false
+      enable_close = true
     }
   }
 })
