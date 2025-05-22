@@ -162,7 +162,7 @@ require("mason").setup({
 })
 
 require("mason-lspconfig").setup{
-    ensure_installed = {"gopls", "clangd", "pyright", "lua_ls", "jdtls", "ts_ls", "cssls", "html", "sqlls"},
+    ensure_installed = {"gopls", "clangd", "pyright", "lua_ls", "jdtls", "ts_ls", "cssls", "html", "sqlls", "csharp_ls"},
 }
 
 -- cmp config
@@ -175,8 +175,8 @@ cmp.setup({
         end,
     },
     window = {
-        -- completion = cmp.config.window.bordered(),
-        -- documentation = cmp.config.window.bordered(),
+        completion = cmp.config.window.bordered(),
+        documentation = cmp.config.window.bordered(),
     },
     mapping = cmp.mapping.preset.insert({
         ['<C-b>'] = cmp.mapping.scroll_docs(-4),
@@ -279,6 +279,10 @@ require("lspconfig").html.setup{
     capabilities = capabilities
 }
 require("lspconfig").sqlls.setup{
+    on_attach = on_attach,
+    capabilities = capabilities
+}
+require("lspconfig").csharp_ls.setup{
     on_attach = on_attach,
     capabilities = capabilities
 }
