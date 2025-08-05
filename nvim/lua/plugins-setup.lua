@@ -162,7 +162,7 @@ require("mason").setup({
 })
 
 require("mason-lspconfig").setup{
-    ensure_installed = {"gopls", "clangd", "pyright", "lua_ls", "jdtls", "ts_ls", "cssls", "html", "sqlls", "csharp_ls"},
+    ensure_installed = {"gopls", "clangd", "pyright", "lua_ls", "jdtls", "ts_ls", "cssls", "html", "sqlls", "docker_compose_language_service", "dockerls", "nginx_language_server", "tailwindcss", "yamlls"},
 }
 
 -- cmp config
@@ -282,7 +282,23 @@ require("lspconfig").sqlls.setup{
     on_attach = on_attach,
     capabilities = capabilities
 }
-require("lspconfig").csharp_ls.setup{
+require("lspconfig").docker_compose_language_service.setup{
+    on_attach = on_attach,
+    capabilities = capabilities
+}
+require("lspconfig").dockerls.setup{
+    on_attach = on_attach,
+    capabilities = capabilities
+}
+require("lspconfig").nginx_language_server.setup{
+    on_attach = on_attach,
+    capabilities = capabilities
+}
+require("lspconfig").tailwindcss.setup{
+    on_attach = on_attach,
+    capabilities = capabilities
+}
+require("lspconfig").yamlls.setup{
     on_attach = on_attach,
     capabilities = capabilities
 }
