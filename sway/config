@@ -215,9 +215,13 @@ bindsym $mod+r mode "resize"
     # Special keys to adjust brightness via brightnessctl
     bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
     bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
-    # Special key to take a screenshot with grim
+    # Special keys to take a screenshot with grim
     #bindsym Print exec grim
-    bindsym Print exec grim -g "$(slurp)" ~/Screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png
+    bindsym Print exec grim -g "$(slurp)" ~/Screenshots/screenshot-$(date +'%Y-%m-%d_%H-%M-%S').png
+    bindsym Shift+Print exec slurp | grim -g - - | wl-copy
+    # Special keys to take a screen recordings with wl-screenrec
+    bindsym $mod+Shift+r exec (pgrep wl-screenrec && pkill -INT wl-screenrec) || (wl-screenrec -g "$(slurp)" -f ~/ScreenRecordings/recording-$(date +'%Y-%m-%d_%H-%M-%S').mp4)
+    bindsym $mod+Shift+a exec (pgrep wl-screenrec && pkill -INT wl-screenrec) || (wl-screenrec --audio -g "$(slurp)" -f ~/ScreenRecordings/recording-$(date +'%Y-%m-%d_%H-%M-%S').mp4)
 
 #
 # Status Bar:
