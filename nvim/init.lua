@@ -191,9 +191,9 @@ for _, server in ipairs(servers) do
         })
 
         -- Resolve root_dir correctly
-        if opts.root_dir and type(opts.root_dir) == "function" then
-          opts.root_dir = opts.root_dir(args.buf)
-        end
+        -- if opts.root_dir and type(opts.root_dir) == "function" then
+        --   opts.root_dir = opts.root_dir(args.buf)
+        -- end
 
         -- Start server for buffer
         vim.lsp.start(opts)
