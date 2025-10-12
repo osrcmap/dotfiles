@@ -19,8 +19,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
   if vim.v.shell_error ~= 0 then
     vim.api.nvim_echo({
       { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-      { out, "WarningMsg" },
-      { "\nPress any key to exit..." },
+      { out, "WarningMsg" }, { "\nPress any key to exit..." },
     }, true, {})
     vim.fn.getchar()
     os.exit(1)
@@ -105,7 +104,7 @@ require("mason-lspconfig").setup({
   ensure_installed = {
     "gopls", "clangd", "pyright", "lua_ls", "jdtls", "ts_ls", "cssls", "html", "sqlls",
     "docker_compose_language_service", "dockerls", "nginx_language_server",
-    "tailwindcss", "yamlls"
+    "tailwindcss", "yamlls", "elp"
   },
 })
 
@@ -175,7 +174,7 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities()
 local on_attach = on_attach
 local lsp = vim.lsp
 
-local servers = { "gopls", "clangd", "pyright", "lua_ls", "jdtls", "ts_ls", "cssls", "html", "sqlls", "docker_compose_language_service", "dockerls", "nginx_language_server", "tailwindcss", "yamlls" }
+local servers = { "gopls", "clangd", "pyright", "lua_ls", "jdtls", "ts_ls", "cssls", "html", "sqlls", "docker_compose_language_service", "dockerls", "nginx_language_server", "tailwindcss", "yamlls", "elp" }
 
 for _, server in ipairs(servers) do
   local config = vim.lsp.config[server]
@@ -236,3 +235,6 @@ vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find f
 vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Telescope live grep" })
 vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Telescope buffers" })
 vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope help tags" })
+
+-- Undotree
+vim.keymap.set('n', '<leader><F5>', vim.cmd.UndotreeToggle)

@@ -114,14 +114,14 @@ button:hover {
 }
 
 #clock {
-    background-color: rgba(100, 114, 125, 0.5);
-    border-radius: 12px;
+    background-color: rgba(100, 114, 125, 0.3);
+    border-radius: 3px;
 }
 
 #battery {
-    background-color: rgba(255, 255, 255, 0.5);
-    color: #000000;
-    border-radius: 12px;
+    background-color: rgba(100, 114, 125, 0.3);
+    color: #ffffff;
+    border-radius: 3px;
 }
 
 #battery.charging, #battery.plugged {
@@ -133,7 +133,7 @@ button:hover {
     to {
         background-color: rgba(255, 255, 255, 0.5);
         color: #000000;
-        border-radius: 12px;
+        border-radius: 3px;
     }
 }
 
@@ -172,14 +172,14 @@ label:focus {
 }
 
 #cpu {
-    background-color: rgba(46, 204, 113, 0.5);
+    background-color: rgba(100, 114, 125, 0.3);
     color: #ffffff;
-    border-radius: 12px;
+    border-radius: 3px;
 }
 
 #memory {
-    background-color: rgba(155, 89, 182, 0.5);
-    border-radius: 12px;
+    background-color: rgba(100, 114, 125, 0.3);
+    border-radius: 3px;
 }
 
 #disk {
@@ -187,30 +187,30 @@ label:focus {
 }
 
 #backlight {
-    background-color: rgba(144, 177, 177, 0.5);
-    border-radius: 12px;
+    background-color: rgba(100, 114, 125, 0.3);
+    border-radius: 3px;
 }
 
 #network {
-    background-color: rgba(41, 128, 185, 0.5);
-    border-radius: 12px;
+    background-color: rgba(100, 114, 125, 0.3);
+    border-radius: 3px;
 }
 
 #network.disconnected {
     background-color: rgba(245, 60, 60, 0.5);
-    border-radius: 12px;
+    border-radius: 3px;
 }
 
 #pulseaudio {
-    background-color: rgba(241, 196, 15, 0.5);
+    background-color: rgba(100, 114, 125, 0.3);
     color: #ffffff;
-    border-radius: 12px;
+    border-radius: 3px;
 }
 
 #pulseaudio.muted {
-    background-color: rgba(144, 177, 177, 0.5);
+    background-color: rgba(245, 60, 60, 0.5);
     color: #ffffff;
-    border-radius: 12px;
+    border-radius: 3px;
 }
 
 #wireplumber {
