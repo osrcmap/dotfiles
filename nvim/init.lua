@@ -106,6 +106,15 @@ require("mason-lspconfig").setup({
     "docker_compose_language_service", "dockerls", "nginx_language_server",
     "tailwindcss", "yamlls", "elp"
   },
+  -- Replaced manual loop that attaches 2 LSPs
+  handlers = {
+    function(server_name)
+      require("lspconfig")[server_name].setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+      })
+    end,
+  }
 })
 
 -- nvim-cmp setup
@@ -176,30 +185,30 @@ local lsp = vim.lsp
 
 local servers = { "gopls", "clangd", "pyright", "lua_ls", "jdtls", "ts_ls", "cssls", "html", "sqlls", "docker_compose_language_service", "dockerls", "nginx_language_server", "tailwindcss", "yamlls", "elp" }
 
-for _, server in ipairs(servers) do
-  local config = vim.lsp.config[server]
-  if config then
-    -- Register autocmd so LSP starts only when a matching filetype is opened
-    vim.api.nvim_create_autocmd("FileType", {
-      pattern = config.filetypes or "*", -- only attach on relevant filetypes
-      callback = function(args)
-
-        local opts = vim.tbl_deep_extend("force", config, {
-          capabilities = capabilities,
-          on_attach = on_attach,
-        })
-
-        -- Resolve root_dir correctly
-        -- if opts.root_dir and type(opts.root_dir) == "function" then
-        --   opts.root_dir = opts.root_dir(args.buf)
-        -- end
-
-        -- Start server for buffer
-        vim.lsp.start(opts)
-      end,
-    })
-  end
-end
+--for _, server in ipairs(servers) do
+--  local config = vim.lsp.config[server]
+--  if config then
+--    -- Register autocmd so LSP starts only when a matching filetype is opened
+--    vim.api.nvim_create_autocmd("FileType", {
+--      pattern = config.filetypes or "*", -- only attach on relevant filetypes
+--      callback = function(args)
+--
+--        local opts = vim.tbl_deep_extend("force", config, {
+--          capabilities = capabilities,
+--          on_attach = on_attach,
+--        })
+--
+--        -- Resolve root_dir correctly
+--        -- if opts.root_dir and type(opts.root_dir) == "function" then
+--        --   opts.root_dir = opts.root_dir(args.buf)
+--        -- end
+--
+--        -- Start server for buffer
+--        vim.lsp.start(opts)
+--      end,
+--    })
+--  end
+--end
 
 -- Lualine
 require("lualine").setup({
