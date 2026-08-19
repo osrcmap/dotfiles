@@ -100,21 +100,37 @@ require("mason").setup({
   }
 })
 
+-- LSP defaults for every server (mason-lspconfig v2 auto-enables them)
+vim.lsp.config("*", {
+  capabilities = require("cmp_nvim_lsp").default_capabilities(),
+})
+
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(args)
+    local opts = { noremap = true, silent = true, buffer = args.buf }
+    local map = vim.keymap.set
+
+    map("n", "gd", vim.lsp.buf.definition, opts)
+    map("n", "gD", vim.lsp.buf.declaration, opts)
+    map("n", "K", vim.lsp.buf.hover, opts)
+    map("n", "gi", vim.lsp.buf.implementation, opts)
+    map("n", "gr", vim.lsp.buf.references, opts)
+    map("n", "<leader>rn", vim.lsp.buf.rename, opts)
+    map("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+    map("n", "<leader>f", function() vim.lsp.buf.format { async = true } end, opts)
+    map("n", "<leader>e", vim.diagnostic.open_float, opts)
+    map("n", "[d", function() vim.diagnostic.jump({ count = -1, float = true }) end, opts)
+    map("n", "]d", function() vim.diagnostic.jump({ count = 1, float = true }) end, opts)
+    map("n", "<leader>q", vim.diagnostic.setloclist, opts)
+  end,
+})
+
 require("mason-lspconfig").setup({
   ensure_installed = {
     "gopls", "clangd", "pyright", "lua_ls", "jdtls", "ts_ls", "cssls", "html", "sqlls",
     "docker_compose_language_service", "dockerls", "nginx_language_server",
     "tailwindcss", "yamlls", "elp"
   },
-  -- Replaced manual loop that attaches 2 LSPs
-  handlers = {
-    function(server_name)
-      require("lspconfig")[server_name].setup({
-        capabilities = capabilities,
-        on_attach = on_attach,
-      })
-    end,
-  }
 })
 
 -- nvim-cmp setup
@@ -155,60 +171,6 @@ cmp.setup.cmdline(":", {
   sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } }),
   matching = { disallow_symbol_nonprefix_matching = false },
 })
-
--- LSP setup
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
-local on_attach = function(_, bufnr)
-  local opts = { noremap = true, silent = true, buffer = bufnr }
-  local map = vim.keymap.set
-
-  map("n", "gd", vim.lsp.buf.definition, opts)
-  map("n", "gD", vim.lsp.buf.declaration, opts)
-  map("n", "K", vim.lsp.buf.hover, opts)
-  map("n", "gi", vim.lsp.buf.implementation, opts)
-  map("n", "gr", vim.lsp.buf.references, opts)
-  map("n", "<leader>rn", vim.lsp.buf.rename, opts)
-  map("n", "<leader>ca", vim.lsp.buf.code_action, opts)
-  map("n", "<leader>f", function() vim.lsp.buf.format { async = true } end, opts)
-  map("n", "<leader>e", vim.diagnostic.open_float, opts)
-  map("n", "[d", vim.diagnostic.goto_prev, opts)
-  map("n", "]d", vim.diagnostic.goto_next, opts)
-  map("n", "<leader>q", vim.diagnostic.setloclist, opts)
-end
-
--- New API for LSP config
--- LSP setup (per filetype)
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
-local on_attach = on_attach
-local lsp = vim.lsp
-
-local servers = { "gopls", "clangd", "pyright", "lua_ls", "jdtls", "ts_ls", "cssls", "html", "sqlls", "docker_compose_language_service", "dockerls", "nginx_language_server", "tailwindcss", "yamlls", "elp" }
-
---for _, server in ipairs(servers) do
---  local config = vim.lsp.config[server]
---  if config then
---    -- Register autocmd so LSP starts only when a matching filetype is opened
---    vim.api.nvim_create_autocmd("FileType", {
---      pattern = config.filetypes or "*", -- only attach on relevant filetypes
---      callback = function(args)
---
---        local opts = vim.tbl_deep_extend("force", config, {
---          capabilities = capabilities,
---          on_attach = on_attach,
---        })
---
---        -- Resolve root_dir correctly
---        -- if opts.root_dir and type(opts.root_dir) == "function" then
---        --   opts.root_dir = opts.root_dir(args.buf)
---        -- end
---
---        -- Start server for buffer
---        vim.lsp.start(opts)
---      end,
---    })
---  end
---end
 
 -- Lualine
 require("lualine").setup({

@@ -21,8 +21,9 @@ set $menu wmenu-run
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-#output * bg ./wallpapers/z.png fill
+#output * bg ./wallpapers/voronoi.png fill
 output * bg #000000 solid_color
+output HDMI-A-1 mode 1920x1080@100.003Hz
 #
 # Example configuration:
 #
@@ -245,3 +246,6 @@ bindsym $mod+r mode "resize"
 bar swaybar_command waybar
 
 include /etc/sway/config.d/*
+
+# Autostart dunst
+exec /usr/bin/dunst
