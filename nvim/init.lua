@@ -10,6 +10,7 @@ vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.scrolloff = 10
+vim.opt.undofile = true
 
 -- Plugin setup (lazy)
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -30,12 +31,10 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
   {
     "nvim-treesitter/nvim-treesitter",
+    branch = "main",
+    lazy = false,
     build = ":TSUpdate",
-    opts = {
-      ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "javascript", "html", "css", "go", "cpp", "python", "java", "sql", "bash", "typescript", "dockerfile", "yaml" },
-      highlight = { enable = true },
-      indent = { enable = true },
-    },
+    config = function() require("config.treesitter").setup() end,
   },
 
   { "williamboman/mason.nvim" },
@@ -61,8 +60,6 @@ require("lazy").setup({
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-cmdline",
-      "hrsh7th/cmp-vsnip",
-      "hrsh7th/vim-vsnip",
     }
   },
 
@@ -139,7 +136,7 @@ local cmp = require("cmp")
 cmp.setup({
   snippet = {
     expand = function(args)
-      vim.fn["vsnip#anonymous"](args.body)
+      vim.snippet.expand(args.body)
     end,
   },
   window = {
@@ -152,10 +149,28 @@ cmp.setup({
     ["<C-Space>"] = cmp.mapping.complete(),
     ["<C-e>"] = cmp.mapping.abort(),
     ["<CR>"] = cmp.mapping.confirm({ select = true }),
+    ["<Tab>"] = cmp.mapping(function(fallback)
+      if vim.snippet.active({ direction = 1 }) then
+        vim.snippet.jump(1)
+      elseif cmp.visible() then
+        cmp.select_next_item()
+      else
+        fallback()
+      end
+    end, { "i", "s" }),
+    ["<S-Tab>"] = cmp.mapping(function(fallback)
+      if vim.snippet.active({ direction = -1 }) then
+        vim.snippet.jump(-1)
+      elseif cmp.visible() then
+        cmp.select_prev_item()
+      else
+        fallback()
+      end
+    end, { "i", "s" }),
   }),
   sources = cmp.config.sources({
     { name = "nvim_lsp" },
-    { name = "vsnip" },
+    { name = "path" },
   }, {
     { name = "buffer" },
   }),
