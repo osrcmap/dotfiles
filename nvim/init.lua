@@ -40,6 +40,21 @@ require("lazy").setup({
   { "williamboman/mason.nvim" },
   { "williamboman/mason-lspconfig.nvim" },
   { "neovim/nvim-lspconfig" },
+  { "WhoIsSethDaniel/mason-tool-installer.nvim" },
+
+  {
+    "stevearc/conform.nvim",
+    config = function() require("config.formatting").setup() end,
+  },
+  {
+    "lewis6991/gitsigns.nvim",
+    config = function() require("config.gitsigns").setup() end,
+  },
+  {
+    "nvim-mini/mini.surround",
+    main = "mini.surround",
+    opts = {},
+  },
 
   {
     "windwp/nvim-autopairs",
@@ -97,6 +112,11 @@ require("mason").setup({
   }
 })
 
+require("mason-tool-installer").setup({
+  ensure_installed = { "prettier", "ruff", "stylua", "shfmt" },
+  integrations = { ["mason-lspconfig"] = false },
+})
+
 -- LSP defaults for every server (mason-lspconfig v2 auto-enables them)
 vim.lsp.config("*", {
   capabilities = require("cmp_nvim_lsp").default_capabilities(),
@@ -114,7 +134,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
     map("n", "gr", vim.lsp.buf.references, opts)
     map("n", "<leader>rn", vim.lsp.buf.rename, opts)
     map("n", "<leader>ca", vim.lsp.buf.code_action, opts)
-    map("n", "<leader>f", function() vim.lsp.buf.format { async = true } end, opts)
     map("n", "<leader>e", vim.diagnostic.open_float, opts)
     map("n", "[d", function() vim.diagnostic.jump({ count = -1, float = true }) end, opts)
     map("n", "]d", function() vim.diagnostic.jump({ count = 1, float = true }) end, opts)
